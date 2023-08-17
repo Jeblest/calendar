@@ -8,7 +8,6 @@ export default function Login() {
     email: "",
     password: "",
   });
-
   const nav = useNavigate();
 
   const handleSubmit = async (e) => {
