@@ -19,9 +19,9 @@ export default function CreateGoal() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedLabel, setSelectedLabel] = useState(labelsClasses[0]);
-  const { daySelected, monthIndex,weekIndex,currentYear } = useDate();
-  const {  viewMode } = useCalendar();
-  const { setCreateGoal,setSyncGoal } = useGoal();
+  const { daySelected, monthIndex, weekIndex, currentYear } = useDate();
+  const { viewMode } = useCalendar();
+  const { setCreateGoal, setSyncGoal } = useGoal();
   async function handleSubmit(e) {
     e.preventDefault();
     const newGoal = {
@@ -33,7 +33,7 @@ export default function CreateGoal() {
     };
     await createGoal(newGoal);
     setCreateGoal(false);
-    setSyncGoal(true)
+    setSyncGoal(true);
   }
   function goalType() {
     let result;

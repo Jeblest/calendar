@@ -3,7 +3,6 @@ import { useContext, useState, useEffect } from "react";
 import CalendarHeader from "../components/CalendarHeader";
 import axios from "axios";
 export default function Login() {
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,15 +15,14 @@ export default function Login() {
         url: "http://localhost:3000/auth/login",
         withCredentials: true,
       });
-      nav("/login")
+      nav("/login");
     } catch (error) {
       console.log(error);
-      if(error.message === "Network Error"){
-        alert("Server is down")
-        nav("/login")
-      }else{
-        nav("/calendar")
-
+      if (error.message === "Network Error") {
+        alert("Server is down");
+        nav("/login");
+      } else {
+        nav("/calendar");
       }
     }
   }
@@ -52,7 +50,6 @@ export default function Login() {
         url: "http://localhost:3000/auth/login",
       });
       window.location.href = "/calendar";
-
     } catch (error) {
       console.log(error);
       window.location.reload();

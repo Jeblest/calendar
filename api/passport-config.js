@@ -7,7 +7,7 @@ module.exports = function (passport) {
   passport.use(new LocalStrategy(
     { usernameField: 'email' },
     async function (email, password, done) {
-    const user = await User.findOne({ email: email })
+      const user = await User.findOne({ email: email })
       if (!user) { return done(null, false, "User not found") }
       bcrypt.compare(password, user.password, (err, res) => {
         if (err) throw err;
@@ -27,7 +27,7 @@ module.exports = function (passport) {
     try {
       const user = await User.findById(id)
       cb(null, user);
-      
+
     } catch (error) {
       cb(error, null)
     }

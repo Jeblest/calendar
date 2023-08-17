@@ -20,7 +20,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors({origin : "http://localhost:5173", credentials : true}));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(morgan("dev"))
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -35,8 +35,8 @@ require('./passport-config')(passport);
 // ------------------End of Middleware------------------
 
 app.use("/auth", require('./routes/auth'))
-app.use("/",require("./routes/task"))
-app.use("/",require("./routes/goal"))
+app.use("/", require("./routes/task"))
+app.use("/", require("./routes/goal"))
 
 
 // ------------------End of Routes------------------

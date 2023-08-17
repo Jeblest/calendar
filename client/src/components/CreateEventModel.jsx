@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useDate } from "../context/DateContext";
 import { useCalendar } from "../context/CalendarContext";
 import { createTask } from "../utils/API";
-
+import { useDate } from "../context/DateContext";
 export default function CreateEventModel() {
   const labelsClasses = [
     "bg-indigo-400",

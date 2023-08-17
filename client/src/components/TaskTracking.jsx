@@ -5,10 +5,9 @@ export default function TaskTracking() {
     <div>
       <div className="text-lg">Your Tasks</div>
       <div>
-        <input type="radio" value={"Reminder"} name="task" id="task"/>
+        <input type="radio" value={"Reminder"} name="task" id="task" />
         <label htmlFor="task">Reminder</label>
       </div>
-
     </div>
   );
 }

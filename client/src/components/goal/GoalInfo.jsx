@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { deleteGoal, updateGoal } from "../../utils/API";
 import { useGoal } from "../../context/GoalContext";
-
 const labelsClasses = [
   "bg-indigo-400",
   "bg-amber-400",
@@ -12,13 +11,13 @@ const labelsClasses = [
   "bg-fuchsia-400",
   "bg-violet-400",
 ];
-export default function GoalInfo({ goal}) {
+export default function GoalInfo({ goal }) {
   const [selectedLabel, setSelectedLabel] = useState(goal.label);
   const [title, setTitle] = useState(goal.title);
   const [description, setDescription] = useState(goal.description);
   const [date, setDate] = useState(goal.date);
-  const [editContent,setEditContent] = useState(false)
-  const {setShowGoal,setSyncGoal} = useGoal();
+  const [editContent, setEditContent] = useState(false);
+  const { setShowGoal, setSyncGoal } = useGoal();
   const handleEdit = async () => {
     await updateGoal(goal._id, {
       title,
@@ -27,7 +26,7 @@ export default function GoalInfo({ goal}) {
     });
     setShowGoal(false);
     setSyncGoal(true);
-    setEditContent(false)
+    setEditContent(false);
   };
 
   return (
@@ -47,7 +46,7 @@ export default function GoalInfo({ goal}) {
               type="button"
               onClick={() => {
                 deleteGoal(goal._id);
-                setShowGoal(null)
+                setShowGoal(null);
                 setSyncGoal(true);
               }}
             >

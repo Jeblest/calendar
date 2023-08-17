@@ -13,6 +13,8 @@ export async function createTask(task) {
   }
 }
 
+
+
 export async function getTasks() {
   try {
     const res = await axios({
@@ -52,53 +54,52 @@ export async function deleteTask(id) {
 }
 
 export async function createGoal(goal) {
-    try {
-      const res = await axios({
-        method: 'POST',
-        data: goal,
-        url: 'http://localhost:3000/goal', // Update the URL for goals
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    const res = await axios({
+      method: "POST",
+      data: goal,
+      url: "http://localhost:3000/goal", // Update the URL for goals
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.log(error);
   }
-  
-  export async function getGoals() {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: 'http://localhost:3000/goal', // Update the URL for goals
-        withCredentials: true,
-      });
-      return res.data;
-    } catch (error) {
-      console.log(error);
-    }
+}
+
+export async function getGoals() {
+  try {
+    const res = await axios({
+      method: "GET",
+      url: "http://localhost:3000/goal", // Update the URL for goals
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
-  
-  export async function updateGoal(id, goal) {
-    try {
-      const res = await axios({
-        method: 'PUT',
-        data: goal,
-        url: `http://localhost:3000/goal/${id}`, // Update the URL for goals
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+}
+
+export async function updateGoal(id, goal) {
+  try {
+    const res = await axios({
+      method: "PUT",
+      data: goal,
+      url: `http://localhost:3000/goal/${id}`, // Update the URL for goals
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.log(error);
   }
-  
-  export async function deleteGoal(id) {
-    try {
-      const res = await axios({
-        method: 'DELETE',
-        url: `http://localhost:3000/goal/${id}`, // Update the URL for goals
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+}
+
+export async function deleteGoal(id) {
+  try {
+    const res = await axios({
+      method: "DELETE",
+      url: `http://localhost:3000/goal/${id}`, // Update the URL for goals
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.log(error);
   }
-  
+}

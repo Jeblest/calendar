@@ -5,16 +5,17 @@ import { useCalendar } from "../context/CalendarContext";
 import { updateTask } from "../utils/API";
 export default function DayView() {
   const { daySelected } = useDate();
- const { savedEvents, setShowDailyEvent, setShowEventModel,setSyncTask } = useCalendar();
+  const { savedEvents, setShowDailyEvent, setShowEventModel, setSyncTask } =
+    useCalendar();
 
   function handleAddEvent() {
     setShowEventModel(true);
   }
-  function toggleStatus(event){
+  function toggleStatus(event) {
     const status = event.status;
     event.status = !status;
     updateTask(event._id, event);
-    setSyncTask(true)
+    setSyncTask(true);
   }
   return (
     <div className="flex flex-col flex-1 mx-20">
@@ -42,9 +43,13 @@ export default function DayView() {
                 onClick={() => setShowDailyEvent(event)}
               >
                 <span>{event.title}</span>
-                
               </div>
-              <button onClick={() => toggleStatus(event) } className={`absolute mr-5 border-2 top-1/2 right-1 -translate-y-1/2 rounded-full flex justify-center h-8 w-8 items-center ${event.status ? "bg-red-500" : ""}`}></button>
+              <button
+                onClick={() => toggleStatus(event)}
+                className={`absolute mr-5 border-2 top-1/2 right-1 -translate-y-1/2 rounded-full flex justify-center h-8 w-8 items-center ${
+                  event.status ? "bg-red-500" : ""
+                }`}
+              ></button>
             </div>
           ) : null
         )}

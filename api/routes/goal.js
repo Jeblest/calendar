@@ -75,7 +75,7 @@ router.delete("/goal/:goalId", async (req, res) => {
         }
         await User.findByIdAndUpdate(
             req.user.id,
-            { $pull: { goals: goalId } } 
+            { $pull: { goals: goalId } }
         );
         res.json({ message: "Goal deleted successfully" });
     } catch (error) {

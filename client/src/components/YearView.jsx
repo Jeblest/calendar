@@ -7,9 +7,8 @@ import { useDate } from "../context/DateContext";
 export default function YearView() {
   const [currentMonthIdx, setCurrentMonthIdx] = useState(0);
   const months = [...Array(12).keys()];
-  const {setSmallCalendarMonth} = useCalendar()
-  const {setDaySelected,daySelected,currentYear} = useDate()
-
+  const { setSmallCalendarMonth } = useCalendar();
+  const { setDaySelected, daySelected, currentYear } = useDate();
 
   function handleNextMonth() {
     setCurrentMonthIdx(currentMonthIdx + 1);

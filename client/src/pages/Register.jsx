@@ -8,6 +8,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+
   const nav = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,7 +25,7 @@ export default function Login() {
         url: "http://localhost:3000/auth/register",
       });
       console.log(res);
-      nav("/login")
+      nav("/login");
     } catch (error) {
       console.log(error);
       window.location.reload();
@@ -37,10 +38,10 @@ export default function Login() {
         url: "http://localhost:3000/auth/register",
         withCredentials: true,
       });
-      nav("/register")
+      nav("/register");
     } catch (error) {
       console.log(error);
-      nav("/calendar")
+      nav("/calendar");
     }
   }
   useEffect(() => {
@@ -53,8 +54,6 @@ export default function Login() {
       [name]: value,
     }));
   };
-
-
 
   return (
     <section className="bg-gray-50 flex flex-col h-screen">

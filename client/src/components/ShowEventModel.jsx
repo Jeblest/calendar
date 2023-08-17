@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useCalendar } from "../context/CalendarContext";
 import { deleteTask, updateTask } from "../utils/API";
+import { useDate } from "../context/DateContext";
 export default function ShowEventModel() {
   const labelsClasses = [
     "bg-indigo-400",

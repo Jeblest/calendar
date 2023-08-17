@@ -14,4 +14,5 @@ function isLoggedOut(req, res, next) {
     res.status(400).json("Already Logged In")
 }
 
+
 module.exports = { isLoggedIn, isLoggedOut }

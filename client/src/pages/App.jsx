@@ -32,7 +32,7 @@ function App() {
     setSyncTask,
     savedEvents,
   } = useCalendar();
-  const { createGoal,setGoals,setSyncGoal,syncGoal,showGoal } = useGoal();
+  const { createGoal, setGoals, setSyncGoal, syncGoal, showGoal } = useGoal();
   const nav = useNavigate();
   async function fetchTasks() {
     const tasks = await getTasks();

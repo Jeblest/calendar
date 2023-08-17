@@ -6,7 +6,7 @@ const { isLoggedIn } = require('../middleware')
 
 
 
-router.post("/task",isLoggedIn, async (req, res) => {
+router.post("/task", isLoggedIn, async (req, res) => {
 
     const task = req.body;
     const user = await User.findById(req.user.id);
@@ -31,7 +31,7 @@ router.post("/task",isLoggedIn, async (req, res) => {
     }
 })
 
-router.get("/task", isLoggedIn,async (req, res) => {
+router.get("/task", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).populate("tasks");
 
@@ -45,7 +45,7 @@ router.get("/task", isLoggedIn,async (req, res) => {
     }
 });
 
-router.put("/task/:taskId",isLoggedIn, async (req, res) => {
+router.put("/task/:taskId", isLoggedIn, async (req, res) => {
     try {
         const taskId = req.params.taskId;
         const updatedTask = req.body;
@@ -63,7 +63,7 @@ router.put("/task/:taskId",isLoggedIn, async (req, res) => {
     }
 });
 
-router.delete("/task/:taskId",isLoggedIn, async (req, res) => {
+router.delete("/task/:taskId", isLoggedIn, async (req, res) => {
     try {
         const taskId = req.params.taskId;
 

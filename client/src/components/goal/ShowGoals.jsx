@@ -6,6 +6,7 @@ import { useCalendar } from "../../context/CalendarContext";
 import { getWeek } from "../../utils/getDate";
 import { useGoal } from "../../context/GoalContext";
 import GoalInfo from "./GoalInfo";
+
 export default function ShowGoals() {
   const { monthIndex, daySelected, currentYear, weekIndex } = useDate();
   const { viewMode } = useCalendar();

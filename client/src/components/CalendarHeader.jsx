@@ -68,24 +68,22 @@ export default function CalendarHeader() {
       setMonthIndex(monthIndex + direction);
     }
     if (viewMode === "Day") {
-      const newDay = dayjs().date(Number(day) + direction)
+      const newDay = dayjs().date(Number(day) + direction);
       setDaySelected(newDay);
       if (
-        Number(getWeek(weekIndex)[6].format("DD")) <
-        Number(newDay.format("DD")))
-       {
+        Number(getWeek(weekIndex)[6].format("DD")) < Number(newDay.format("DD"))
+      ) {
         setWeekIndex(weekIndex + direction);
       }
       if (
-        Number(getWeek(weekIndex)[0].format("DD")) >
-        Number((newDay).format("DD")))
-       {
+        Number(getWeek(weekIndex)[0].format("DD")) > Number(newDay.format("DD"))
+      ) {
         setWeekIndex(weekIndex + direction);
       }
       const formatedWeek = getWeek(weekIndex).map((day) =>
         day.format("DD-MM-YYYY")
       );
-      if (!(formatedWeek.includes(daySelected.format("DD-MM-YYYY")))) {
+      if (!formatedWeek.includes(daySelected.format("DD-MM-YYYY"))) {
         setWeekIndex(weekIndex + direction);
       }
     }
@@ -93,7 +91,7 @@ export default function CalendarHeader() {
       setYear(currentYear + direction);
     }
     if (viewMode === "Week") {
-      setWeekIndex(weekIndex + direction)
+      setWeekIndex(weekIndex + direction);
     }
   }
 
@@ -136,10 +134,13 @@ export default function CalendarHeader() {
         </button>
         <span className="text-xl ml-4 text-gray-500">
           {viewMode === "Day" ? daySelected.format("MMMM DD, YYYY") : ""}
-          {viewMode === "Month" 
+          {viewMode === "Month"
             ? dayjs().month(monthIndex).format("MMMM YYYY")
             : ""}
-            {viewMode === "Week" && `${getWeek(weekIndex)[0].format("DD MMM")} - ${getWeek(weekIndex)[6].format("DD MMM")}`}
+          {viewMode === "Week" &&
+            `${getWeek(weekIndex)[0].format("DD MMM")} - ${getWeek(
+              weekIndex
+            )[6].format("DD MMM")}`}
           {viewMode === "Year" ? currentYear : ""}
         </span>
       </div>
