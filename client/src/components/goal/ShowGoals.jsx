@@ -55,7 +55,7 @@ export default function ShowGoals() {
                   className="border-b-2 border-gray-300"
                 >
                   <div
-                    className={`${goal.label} w-full h-10 text-white cursor-pointer flex items-center pl-10 mt-4`}
+                    className={`${goal.label} w-full h-10 text-white cursor-pointer flex items-center pl-10 mt-4 rounded-2xl`}
                   >
                     <span>{goal.title}</span>
                   </div>

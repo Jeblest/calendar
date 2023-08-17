@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import Day from "./Day";
-import { useCalendar } from "../context/CalendarContext";
 export default function Month({ month }) {
   return (
     <div className="flex-1 grid grid-cols-7 grid-rows-5 ">

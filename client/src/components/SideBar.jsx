@@ -5,7 +5,6 @@ import TaskTracking from "./TaskTracking";
 import ShowGoals from "./goal/ShowGoals";
 import { useGoal } from "../context/GoalContext";
 import { useCalendar } from "../context/CalendarContext";
-import { useDate } from "../context/DateContext";
 export default function SideBar() {
   const { sideBar } = useCalendar();
   const { showGoals } = useGoal();

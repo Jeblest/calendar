@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import { getMonth } from "../utils/getDate";
 import { useDate } from "../context/DateContext";
 import { useCalendar } from "../context/CalendarContext";
-import { useEffect } from "react";
 export default function SmallCalendar() {
   const { monthIndex, setDaySelected, daySelected } = useDate();
   const { setSmallCalendarMonth } = useCalendar();
