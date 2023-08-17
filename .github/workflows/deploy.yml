@@ -15,9 +15,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Debug directory contents
         run: |
-          ls -la /home/runner/work/calendar
+          ls -la /home/runner/work/calendar/calendar
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v1"
         with:
           node-version: 16
 
