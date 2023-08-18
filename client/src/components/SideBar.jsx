@@ -4,8 +4,9 @@ import SmallCalendar from "./SmallCalendar";
 import ShowGoals from "./goal/ShowGoals";
 import { useGoal } from "../context/GoalContext";
 import { useCalendar } from "../context/CalendarContext";
+import ShowNotes from "./note/ShowNotes";
 export default function SideBar() {
-  const { sideBar } = useCalendar();
+  const { sideBar, sideBarMode } = useCalendar();
   const { showGoals } = useGoal();
   const showSideBar = () => {
     return sideBar
@@ -18,9 +19,7 @@ export default function SideBar() {
         sideBar ? "" : "hidden"
       }`}
     >
-      {showGoals ? (
-        <ShowGoals />
-      ) : (
+      {sideBarMode === "SmallCalendar" && (
         <div
           className={`h-auto max-h-0 transition-all duration-500 ${
             sideBar ? "opacity-100" : "opacity-0"
@@ -30,6 +29,8 @@ export default function SideBar() {
           <SmallCalendar />
         </div>
       )}
+      {sideBarMode === "Goals" && <ShowGoals />}
+      {sideBarMode === "Notes" && <ShowNotes/>}
     </aside>
   );
 }

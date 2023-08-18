@@ -9,6 +9,7 @@ export function CalendarProvider({ children }) {
   const [viewMode, setViewMode] = useState("Day");
   const [sideBar, setSideBar] = useState(true);
   const [syncTask, setSyncTask] = useState(false);
+  const [sideBarMode, setSideBarMode] = useState("SmallCalendar");
   return (
     <CalendarContext.Provider
       value={{
@@ -24,6 +25,8 @@ export function CalendarProvider({ children }) {
         setSideBar,
         syncTask,
         setSyncTask,
+        sideBarMode,
+        setSideBarMode,
       }}
     >
       {children}

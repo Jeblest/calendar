@@ -9,7 +9,7 @@ import { UserProvider } from "./context/UserContext.jsx";
 import { DateProvider } from "./context/DateContext.jsx";
 import { GoalProvider } from "./context/GoalContext.jsx";
 import { CalendarProvider } from "./context/CalendarContext.jsx";
-
+import { NoteProvider } from "./context/NoteContext.jsx";
 const router = createBrowserRouter([
   {
     path: "/calendar",
@@ -27,14 +27,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoalProvider>
-      <CalendarProvider>
-        <DateProvider>
-          <UserProvider>
-            <RouterProvider router={router} />
-          </UserProvider>
-        </DateProvider>
-      </CalendarProvider>
-    </GoalProvider>
+    <NoteProvider>
+      <GoalProvider>
+        <CalendarProvider>
+          <DateProvider>
+            <UserProvider>
+              <RouterProvider router={router} />
+            </UserProvider>
+          </DateProvider>
+        </CalendarProvider>
+      </GoalProvider>
+    </NoteProvider>
   </React.StrictMode>
 );

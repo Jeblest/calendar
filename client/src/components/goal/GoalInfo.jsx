@@ -19,7 +19,7 @@ export default function GoalInfo({ goal }) {
   const [editContent, setEditContent] = useState(false);
   const { setShowGoal, setSyncGoal } = useGoal();
   const handleEdit = async () => {
-    await updateItem("goal",goal._id, {
+    await updateItem("goal", goal._id, {
       title,
       description,
       label: selectedLabel,
@@ -45,7 +45,7 @@ export default function GoalInfo({ goal }) {
             <button
               type="button"
               onClick={() => {
-                deleteItem("goal",goal._id);
+                deleteItem("goal", goal._id);
                 setShowGoal(null);
                 setSyncGoal(true);
               }}

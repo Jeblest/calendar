@@ -35,7 +35,7 @@ export default function CreateEventModel() {
 
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center z-50">
-      <form className="bg-gray-100 rounded-lg shadow-2xl w-1/4">
+      <form className=" rounded-lg shadow-2xl w-1/4">
         <header className=" px-4 py-2 flex justify-between items-center">
           <span className="material-icons-outlined text-gray-400">
             drag_handle

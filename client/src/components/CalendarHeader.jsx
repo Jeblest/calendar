@@ -24,7 +24,14 @@ export default function CalendarHeader() {
     currentYear,
     setYear,
   } = useDate();
-  const { viewMode, setViewMode, sideBar, setSideBar } = useCalendar();
+  const {
+    viewMode,
+    setViewMode,
+    sideBar,
+    setSideBar,
+    sideBarMode,
+    setSideBarMode,
+  } = useCalendar();
   const { showGoals, setShowGoals } = useGoal();
   const { user } = useUser();
   const [selectedOption, setSelectedOption] = React.useState("Day");
@@ -34,6 +41,7 @@ export default function CalendarHeader() {
   useEffect(() => {
     setSelectedOption(viewMode);
   }, [viewMode]);
+
   function handleToday() {
     setMonthIndex(dayjs().month());
     setWeekIndex(dayjs().week());
@@ -155,40 +163,55 @@ export default function CalendarHeader() {
       </div>
 
       <div className="mr-5">
-        {user ? <>
-          <button
-          onClick={() => {
-            setShowGoals(!showGoals);
-            setSideBar(true);
-          }}
-          className="border box-border rounded py-2 px-4 mr-5"
-        >
-          {showGoals ? "Show Sidebar" : "Show Goals"}
-        </button>
+        {user ? (
+          <>
+            <select
+              className="border rounded box-border py-2 px-4 mr-5"
+              value={sideBarMode}
+              onChange={(e) => setSideBarMode(e.target.value)}
+            >
+              <option selected value={"SmallCalendar"}>
+                Show Small Calendar
+              </option>
+              <option value={"Goals"}>Show Goals</option>
+              <option value="Notes">Show Notes</option>
+            </select>
 
-        <select
-          name="viewMode"
-          id="viewMode"
-          className="border rounded box-border py-2 px-4 mr-5"
-          value={selectedOption}
-          onChange={(e) => setSelectedOption(e.target.value)}
-        >
-          <option defaultValue={"Month"}>Month</option>
-          <option value="Day">Day</option>
-          <option value="Week">Week</option>
-          <option value="Year">Year</option>
-        </select>
-        <button
-          onClick={logout}
-          className="border box-border rounded py-2 px-4 mr-5"
-        >
-          Logout
-        </button>
-        </> : <>
-          <Link className="mr-8 text-2xl hover:underline hover:text-cyan-500" to={"/calendar/login"}>Login</Link>
-          <Link className="mr-8 text-2xl hover:underline hover:text-cyan-500" to={"/calendar/register"}>Register</Link>
-        </>}
-        
+            <select
+              name="viewMode"
+              id="viewMode"
+              className="border rounded box-border py-2 px-4 mr-5"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+            >
+              <option defaultValue={"Month"}>Month</option>
+              <option value="Day">Day</option>
+              <option value="Week">Week</option>
+              <option value="Year">Year</option>
+            </select>
+            <button
+              onClick={logout}
+              className="border box-border rounded py-2 px-4 mr-5"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              className="mr-8 text-2xl hover:underline hover:text-cyan-500"
+              to={"/calendar/login"}
+            >
+              Login
+            </Link>
+            <Link
+              className="mr-8 text-2xl hover:underline hover:text-cyan-500"
+              to={"/calendar/register"}
+            >
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

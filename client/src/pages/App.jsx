@@ -18,6 +18,9 @@ import { getItems } from "../utils/API";
 import { useGoal } from "../context/GoalContext";
 import CreateGoal from "../components/goal/CreateGoal";
 import GoalInfo from "../components/goal/GoalInfo";
+import CreateNote from "../components/note/CreateNote";
+import { useNote } from "../context/NoteContext";
+import NoteInfo from "../components/note/NoteInfo";
 function App() {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
   const [currentWeek, setCurrentWeek] = useState(getWeek());
@@ -33,6 +36,7 @@ function App() {
     savedEvents,
   } = useCalendar();
   const { createGoal, setGoals, setSyncGoal, syncGoal, showGoal } = useGoal();
+  const {createNote,setNotes,syncNote,setSyncNote,showNoteModel,showNote} = useNote();
   const nav = useNavigate();
   async function fetchTasks() {
     const tasks = await getItems("task");
@@ -42,6 +46,14 @@ function App() {
   useEffect(() => {
     fetchTasks();
   }, [syncTask]);
+  async function fetchNote() {
+    const notes = await getItems("note");
+    setNotes(notes);
+    setSyncNote(false);
+  }
+  useEffect(() => {
+    fetchNote();
+  }, [syncNote]);
   async function fetchGoals() {
     const goals = await getItems("goal");
     setGoals(goals);
@@ -75,6 +87,8 @@ function App() {
   }, [weekIndex]);
   return (
     <>
+      {showNoteModel && <NoteInfo note={showNote}/>}
+      {createNote && <CreateNote/>}
       {showGoal && <GoalInfo goal={showGoal} />}
       {createGoal && <CreateGoal />}
       {showEventModel && <CreateEventModel />}
