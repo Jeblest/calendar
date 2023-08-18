@@ -36,8 +36,7 @@ jobs:
           node-version: 18
           cache: 'npm'
       - name: Debug
-         run: |
-          ls -la /home/runner
+         run: ls -la /home/runner
       - name: Install dependencies
         run: npm install
       - name: Build
