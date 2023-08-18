@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import CreateEventButton from "./CreateEventButton";
 import SmallCalendar from "./SmallCalendar";
-import TaskTracking from "./TaskTracking";
 import ShowGoals from "./goal/ShowGoals";
 import { useGoal } from "../context/GoalContext";
 import { useCalendar } from "../context/CalendarContext";
@@ -29,7 +28,6 @@ export default function SideBar() {
         >
           <CreateEventButton />
           <SmallCalendar />
-          <TaskTracking />
         </div>
       )}
     </aside>
