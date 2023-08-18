@@ -9,17 +9,18 @@ import { UserProvider } from "./context/UserContext.jsx";
 import { DateProvider } from "./context/DateContext.jsx";
 import { GoalProvider } from "./context/GoalContext.jsx";
 import { CalendarProvider } from "./context/CalendarContext.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/calendar",
     element: <App />,
   },
   {
-    path: "/login",
+    path: "/calendar/login",
     element: <Login />,
   },
   {
-    path: "/register",
+    path: "/calendar/register",
     element: <Register />,
   },
 ]);

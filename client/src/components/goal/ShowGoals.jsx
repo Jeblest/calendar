@@ -37,7 +37,7 @@ export default function ShowGoals() {
     return result;
   }
   return (
-    <div className="h-full flex flex-col justify-between ">
+    <div className="h-full flex flex-col justify-between">
       <div>
         <header>
           <div>
@@ -52,7 +52,7 @@ export default function ShowGoals() {
               goal.date === goalType() && (
                 <div
                   onClick={() => setShowGoal(goal)}
-                  className="border-b-2 border-gray-300"
+                  className=" border-gray-300"
                 >
                   <div
                     className={`${goal.label} w-full h-10 text-white cursor-pointer flex items-center pl-10 mt-4 rounded-2xl`}

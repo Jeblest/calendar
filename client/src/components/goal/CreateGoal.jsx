@@ -3,7 +3,7 @@ import { useGoal } from "../../context/GoalContext";
 import dayjs from "dayjs";
 import { useCalendar } from "../../context/CalendarContext";
 import { useDate } from "../../context/DateContext";
-import { createGoal } from "../../utils/API";
+import { createItem } from "../../utils/API";
 import { getWeek } from "../../utils/getDate";
 export default function CreateGoal() {
   const labelsClasses = [
@@ -31,7 +31,7 @@ export default function CreateGoal() {
       date: goalType(),
       status: false,
     };
-    await createGoal(newGoal);
+    await createItem("goal",newGoal);
     setCreateGoal(false);
     setSyncGoal(true);
   }
@@ -62,7 +62,7 @@ export default function CreateGoal() {
   }
 
   return (
-    <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
+    <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center z-50">
       <form className="bg-white rounded-lg shadow-2xl w-1/4">
         <header className="bg-gray-100 px-4 py-2 flex justify-between items-center">
           <span className="material-icons-outlined text-gray-400">

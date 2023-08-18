@@ -24,7 +24,7 @@ export default function Login() {
         url: "http://localhost:3000/auth/register",
       });
       console.log(res);
-      nav("/login");
+      nav("/calendar/login");
     } catch (error) {
       console.log(error);
       window.location.reload();
@@ -37,7 +37,7 @@ export default function Login() {
         url: "http://localhost:3000/auth/register",
         withCredentials: true,
       });
-      nav("/register");
+      nav("/calendar/register");
     } catch (error) {
       console.log(error);
       nav("/calendar");
@@ -149,10 +149,10 @@ export default function Login() {
                 Register
               </button>
               <p className="text-sm font-light text-gray-500 ">
-                Don’t have an account yet?{" "}
+                Already have an account?{" "}
                 <Link
                   className="font-medium text-primary-600 hover:underline"
-                  to={"/register"}
+                  to={"/calendar/login"}
                 >
                   Register
                 </Link>

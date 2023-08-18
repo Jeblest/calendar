@@ -14,7 +14,7 @@ import { useCalendar } from "../context/CalendarContext";
 import { useDate } from "../context/DateContext";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import { getGoals, getTasks } from "../utils/API";
+import { getItems } from "../utils/API";
 import { useGoal } from "../context/GoalContext";
 import CreateGoal from "../components/goal/CreateGoal";
 import GoalInfo from "../components/goal/GoalInfo";
@@ -35,7 +35,7 @@ function App() {
   const { createGoal, setGoals, setSyncGoal, syncGoal, showGoal } = useGoal();
   const nav = useNavigate();
   async function fetchTasks() {
-    const tasks = await getTasks();
+    const tasks = await getItems("task");
     setSavedEvents(tasks);
     setSyncTask(false);
   }
@@ -43,7 +43,7 @@ function App() {
     fetchTasks();
   }, [syncTask]);
   async function fetchGoals() {
-    const goals = await getGoals();
+    const goals = await getItems("goal");
     setGoals(goals);
     setSyncGoal(false);
   }
@@ -60,7 +60,7 @@ function App() {
       setUser(res.data);
     } catch (error) {
       console.log(error);
-      nav("/login");
+      nav("/calendar/login");
     }
   };
   useEffect(() => {

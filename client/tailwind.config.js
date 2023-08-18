@@ -15,6 +15,7 @@ export default {
       colors:{
         "primary":"#D81E5B",
         "secondary":"#8a4efc",
+        "dark-alt" : "#202b3e"
       }
 
     },

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useDate } from "../context/DateContext";
 import { useCalendar } from "../context/CalendarContext";
-import { createTask } from "../utils/API";
+import { createItem } from "../utils/API";
 export default function CreateEventModel() {
   const labelsClasses = [
     "bg-indigo-400",
@@ -28,7 +28,7 @@ export default function CreateEventModel() {
       date: daySelected.valueOf(),
       status: false,
     };
-    await createTask(calendarTask);
+    await createItem("task",calendarTask);
     setShowEventModel(false);
     setSyncTask(true);
   }

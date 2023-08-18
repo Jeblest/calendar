@@ -15,12 +15,12 @@ export default function Login() {
         url: "http://localhost:3000/auth/login",
         withCredentials: true,
       });
-      nav("/login");
+      nav("/calendar/login");
     } catch (error) {
       console.log(error);
       if (error.message === "Network Error") {
         alert("Server is down");
-        nav("/login");
+        nav("/calendar/login");
       } else {
         nav("/calendar");
       }
@@ -138,7 +138,7 @@ export default function Login() {
                 Don’t have an account yet?{" "}
                 <Link
                   className="font-medium text-primary-600 hover:underline"
-                  to={"/register"}
+                  to={"/calendar/register"}
                 >
                   Register
                 </Link>

@@ -8,6 +8,8 @@ import { useDate } from "../context/DateContext";
 import { useCalendar } from "../context/CalendarContext";
 import { getWeek } from "../utils/getDate";
 import axios from "axios";
+import { useUser } from "../context/UserContext";
+import { Link } from "react-router-dom";
 dayjs.extend(weekOfYear);
 export default function CalendarHeader() {
   const {
@@ -24,7 +26,7 @@ export default function CalendarHeader() {
   } = useDate();
   const { viewMode, setViewMode, sideBar, setSideBar } = useCalendar();
   const { showGoals, setShowGoals } = useGoal();
-
+  const { user } = useUser();
   const [selectedOption, setSelectedOption] = React.useState("Day");
   useEffect(() => {
     setViewMode(selectedOption);
@@ -106,47 +108,55 @@ export default function CalendarHeader() {
 
         <img src={logo} alt="" className="mr-2 w-12 h-12" />
         <h1 className="mr-10 text-xl text-gray-500 font-bold">Calendar</h1>
-        <button onClick={handleToday} className="border rounded py-2 px-4 mr-5">
-          Today
-        </button>
-        <button
-          className={`${info("Prev")}
+        {user && (
+          <>
+            <button
+              onClick={handleToday}
+              className="border rounded py-2 px-4 mr-5"
+            >
+              Today
+            </button>
+            <button
+              className={`${info("Prev")}
           before:absolute before:bg-gray-400 before:text-white before:rounded before:px-2 before:-translate-x-10 before:opacity-0   hover:before:opacity-100 `}
-          onClick={() => {
-            updateIndex(-1);
-          }}
-        >
-          <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-            chevron_left
-          </span>
-        </button>
-        <button
-          className={`${info(
-            "Prev"
-          )} before:absolute before:bg-gray-400 before:text-white before:rounded before:px-2  before:translate-y-6 before:opacity-0 hover:before:opacity-100`}
-          onClick={() => {
-            updateIndex(1);
-          }}
-        >
-          <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-            chevron_right
-          </span>
-        </button>
-        <span className="text-xl ml-4 text-gray-500">
-          {viewMode === "Day" ? daySelected.format("MMMM DD, YYYY") : ""}
-          {viewMode === "Month"
-            ? dayjs().month(monthIndex).format("MMMM YYYY")
-            : ""}
-          {viewMode === "Week" &&
-            `${getWeek(weekIndex)[0].format("DD MMM")} - ${getWeek(
-              weekIndex
-            )[6].format("DD MMM")}`}
-          {viewMode === "Year" ? currentYear : ""}
-        </span>
+              onClick={() => {
+                updateIndex(-1);
+              }}
+            >
+              <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
+                chevron_left
+              </span>
+            </button>
+            <button
+              className={`${info(
+                "Prev"
+              )} before:absolute before:bg-gray-400 before:text-white before:rounded before:px-2  before:translate-y-6 before:opacity-0 hover:before:opacity-100`}
+              onClick={() => {
+                updateIndex(1);
+              }}
+            >
+              <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
+                chevron_right
+              </span>
+            </button>
+            <span className="text-xl ml-4 text-gray-500">
+              {viewMode === "Day" ? daySelected.format("MMMM DD, YYYY") : ""}
+              {viewMode === "Month"
+                ? dayjs().month(monthIndex).format("MMMM YYYY")
+                : ""}
+              {viewMode === "Week" &&
+                `${getWeek(weekIndex)[0].format("DD MMM")} - ${getWeek(
+                  weekIndex
+                )[6].format("DD MMM")}`}
+              {viewMode === "Year" ? currentYear : ""}
+            </span>
+          </>
+        )}
       </div>
 
       <div className="mr-5">
-        <button
+        {user ? <>
+          <button
           onClick={() => {
             setShowGoals(!showGoals);
             setSideBar(true);
@@ -174,6 +184,11 @@ export default function CalendarHeader() {
         >
           Logout
         </button>
+        </> : <>
+          <Link className="mr-8 text-2xl hover:underline hover:text-cyan-500" to={"/calendar/login"}>Login</Link>
+          <Link className="mr-8 text-2xl hover:underline hover:text-cyan-500" to={"/calendar/register"}>Register</Link>
+        </>}
+        
       </div>
     </header>
   );

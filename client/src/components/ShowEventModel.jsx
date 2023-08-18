@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useCalendar } from "../context/CalendarContext";
-import { deleteTask, updateTask } from "../utils/API";
+import { deleteItem, updateItem } from "../utils/API";
 export default function ShowEventModel() {
   const labelsClasses = [
     "bg-indigo-400",
@@ -21,7 +21,7 @@ export default function ShowEventModel() {
   const [description, setDescription] = useState(showDailyEvent.description);
   const [selectedLabel, setSelectedLabel] = useState(showDailyEvent.label);
   function handleEdit() {
-    updateTask(showDailyEvent._id, {
+    updateItem("task",showDailyEvent._id, {
       ...showDailyEvent,
       title,
       description,
@@ -32,7 +32,7 @@ export default function ShowEventModel() {
     setSyncTask(true);
   }
   function handleDelete() {
-    deleteTask(showDailyEvent._id);
+    deleteItem("task",showDailyEvent._id);
     setShowDailyEvent(null);
     setSyncTask(true);
   }

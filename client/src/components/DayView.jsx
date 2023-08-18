@@ -2,10 +2,10 @@ import { useContext, useState, useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import { useDate } from "../context/DateContext";
 import { useCalendar } from "../context/CalendarContext";
-import { updateTask } from "../utils/API";
+import { updateItem } from "../utils/API";
 export default function DayView() {
   const { daySelected } = useDate();
-  const { savedEvents, setShowDailyEvent, setShowEventModel, setSyncTask } =
+  const { savedEvents, setShowDailyEvent, setShowEventModel, setSyncTask,viewMode } =
     useCalendar();
 
   function handleAddEvent() {
@@ -14,7 +14,7 @@ export default function DayView() {
   function toggleStatus(event) {
     const status = event.status;
     event.status = !status;
-    updateTask(event._id, event);
+    updateItem("task",event._id, event);
     setSyncTask(true);
   }
   return (
@@ -34,12 +34,17 @@ export default function DayView() {
         </button>
       </div>
       <div className="grid grid-cols-3 gap-4">
-        {savedEvents.map((event) =>
-          daySelected.format("DD-MM-YYYY") ===
-          dayjs(event.day).format("DD-MM-YYYY") ? (
+        {savedEvents.map((event) => (
+          (daySelected.format("DD-MM-YYYY") ===
+            dayjs(event.day).format("DD-MM-YYYY")) &&
+          !(viewMode === "Month" && event.status) ? (
             <div className="border-b-2 border-gray-300 rounded-lg relative flex">
               <div
-                className={`${event.label} w-full h-10 text-white my-2 cursor-pointer flex items-center pl-10 rounded-full `}
+                className={`${
+                  event.label
+                } w-full h-10 text-white my-2 cursor-pointer flex items-center pl-10 rounded-full ${
+                  event.status ? "opacity-50" : "opacity-100"
+                } `}
                 onClick={() => setShowDailyEvent(event)}
               >
                 <span>{event.title}</span>
@@ -47,11 +52,11 @@ export default function DayView() {
               <button
                 onClick={() => toggleStatus(event)}
                 className={`absolute mr-5 border-2 top-1/2 right-1 -translate-y-1/2 rounded-full flex justify-center h-8 w-8 items-center ${
-                  event.status ? "bg-red-500" : ""
+                  event.status ? "bg-gray-400" : ""
                 }`}
               ></button>
             </div>
-          ) : null
+          ) : null)
         )}
       </div>
     </div>
