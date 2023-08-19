@@ -41,11 +41,11 @@ export default function Day({ day, rowIdx }) {
         </div>
         {savedEvents.map((event) =>
           dayjs(event.date).format("DD-MM-YYYY") ===
-          day.format("DD-MM-YYYY") ? (
+          day.format("DD-MM-YYYY") && !(viewMode === "Month" && event.status) ?  (
             <div
               key={event.id}
               onClick={() => setShowDailyEvent(event)}
-              className={`${event.label} text-xs rounded-sm text-white mt-1 cursor-pointer`}
+              className={`${event.label}  rounded-sm text-white mt-1 cursor-pointer`}
             >
               {event.title}
             </div>

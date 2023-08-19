@@ -36,7 +36,7 @@ export default function CreateEventButton() {
         onChange={(e) => setSelectedOption(e.target.value)}
         className="border px-12 py-3 rounded-full flex items-center shadow-md hover:shadow-md  hover:shadow-zinc-400 transition duration-300"
       >
-        <option  selected >Create</option>
+        <option >Create</option>
         <option value={"Task"}>Task</option>
         <option value={"Goal"}> Goal</option>
       </select>

@@ -2,7 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import CalendarHeader from "../components/CalendarHeader";
 import axios from "axios";
+import { auth,db } from "../../config/firebase-config";
+import {collection,doc,setDoc} from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useUser } from "../context/UserContext";
+
 export default function Login() {
+  const {user} = useUser()
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -12,40 +18,32 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios({
-        method: "POST",
-        data: {
-          email: formData.email,
-          password: formData.password,
-          username: formData.username,
-        },
-        withCredentials: true,
-        url: "http://localhost:3000/auth/register",
-      });
-      console.log(res);
-      nav("/calendar/login");
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      const userId = userCredential.user.uid;
+      const usersRef = collection(db,"users");
+      const userDoc = doc(usersRef,userId)
+      await setDoc(userDoc,{
+        username:formData.username,
+      },{merge:true})
+      nav("/calendar/login")
     } catch (error) {
-      console.log(error);
-      window.location.reload();
+      console.error(error);
     }
   };
 
-  async function isAuth() {
-    try {
-      const res = await axios({
-        url: "http://localhost:3000/auth/register",
-        withCredentials: true,
-      });
-      nav("/calendar/register");
-    } catch (error) {
-      console.log(error);
-      nav("/calendar");
-    }
+  function isAuth() {
+    if(!user) return nav("/calendar/register")
+    if(user) return nav("/calendar")
   }
   useEffect(() => {
     isAuth();
-  }, []);
+  }, [user]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({

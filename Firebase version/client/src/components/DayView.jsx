@@ -5,8 +5,13 @@ import { useCalendar } from "../context/CalendarContext";
 import { updateItem } from "../utils/API";
 export default function DayView() {
   const { daySelected } = useDate();
-  const { savedEvents, setShowDailyEvent, setShowEventModel, setSyncTask,viewMode } =
-    useCalendar();
+  const {
+    savedEvents,
+    setShowDailyEvent,
+    setShowEventModel,
+    setSyncTask,
+    viewMode,
+  } = useCalendar();
 
   function handleAddEvent() {
     setShowEventModel(true);
@@ -14,11 +19,11 @@ export default function DayView() {
   function toggleStatus(event) {
     const status = event.status;
     event.status = !status;
-    updateItem("task",event._id, event);
+    updateItem("task", event.id, event);
     setSyncTask(true);
   }
   return (
-    <div className="flex flex-col flex-1 mx-20">
+    <div className="flex flex-col flex-1 mx-20 ">
       <div className="flex justify-between items items-end border-b-2 border-gray-300  w-full pl-4 pb-1">
         <div>
           <div className="text-sm">{daySelected.format("dddd")}</div>
@@ -34,20 +39,21 @@ export default function DayView() {
         </button>
       </div>
       <div className="grid grid-cols-3 gap-4">
-        {savedEvents.map((event) => (
-          (daySelected.format("DD-MM-YYYY") ===
-            dayjs(event.date).format("DD-MM-YYYY")) &&
-          !(viewMode === "Month" && event.status) ? (
+        {savedEvents.map((event) =>
+          daySelected.format("DD-MM-YYYY") ===
+          dayjs(event.date).format("DD-MM-YYYY") ? (
             <div className="border-b-2 border-gray-300 rounded-lg relative flex">
               <div
                 className={`${
                   event.label
-                } w-full h-10 text-white my-2 cursor-pointer flex items-center pl-10 rounded-full ${
+                } w-full h-10 text-white my-2 cursor-pointer flex items-center pl-10 rounded-full  ${
                   event.status ? "opacity-50" : "opacity-100"
                 } `}
                 onClick={() => setShowDailyEvent(event)}
               >
-                <span>{event.title}</span>
+                <span className="w-56 overflow-hidden whitespace-nowrap text-ellipsis ">
+                  {event.title}
+                </span>
               </div>
               <button
                 onClick={() => toggleStatus(event)}
@@ -56,7 +62,7 @@ export default function DayView() {
                 }`}
               ></button>
             </div>
-          ) : null)
+          ) : null
         )}
       </div>
     </div>

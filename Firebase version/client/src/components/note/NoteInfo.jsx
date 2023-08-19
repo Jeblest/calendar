@@ -11,7 +11,7 @@ export default function NoteInfo({ note }) {
       title,
       body,
     };
-    await updateItem("note", note._id, newNote);
+    await updateItem("note", note.id, newNote);
     setSyncNote(true);
     setShowNoteModel(false)
   }
@@ -28,7 +28,7 @@ export default function NoteInfo({ note }) {
                 className="mr-4"
               type="button"
               onClick={() => {
-                deleteItem("note", note._id);
+                deleteItem("note", note.id);
                 setShowNoteModel(null);
                 setSyncNote(true);
               }}

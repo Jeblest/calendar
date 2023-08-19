@@ -2,33 +2,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import CalendarHeader from "../components/CalendarHeader";
 import axios from "axios";
+import { useUser } from "../context/UserContext";
+import { auth } from "../../config/firebase-config";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
 export default function Login() {
+  const {user} = useUser()
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const nav = useNavigate();
 
-  async function isAuth() {
-    try {
-      const res = await axios({
-        url: "http://localhost:3000/auth/login",
-        withCredentials: true,
-      });
-      nav("/calendar/login");
-    } catch (error) {
-      console.log(error);
-      if (error.message === "Network Error") {
-        alert("Server is down");
-        nav("/calendar/login");
-      } else {
-        nav("/calendar");
-      }
-    }
+  function isAuth() {
+    if(!user) return nav("/calendar/login")
+    if(user) return nav("/calendar")
   }
   useEffect(() => {
     isAuth();
-  }, []);
+  }, [user]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -40,19 +33,10 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios({
-        method: "POST",
-        data: {
-          email: formData.email,
-          password: formData.password,
-        },
-        withCredentials: true,
-        url: "http://localhost:3000/auth/login",
-      });
-      window.location.href = "/calendar";
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      nav("/calendar")
     } catch (error) {
-      console.log(error);
-      window.location.reload();
+      console.error(error);
     }
   };
 

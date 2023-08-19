@@ -21,7 +21,8 @@ export default function ShowEventModel() {
   const [description, setDescription] = useState(showDailyEvent.description);
   const [selectedLabel, setSelectedLabel] = useState(showDailyEvent.label);
   function handleEdit() {
-    updateItem("task",showDailyEvent._id, {
+    console.log(showDailyEvent)
+    updateItem("task",showDailyEvent.id, {
       ...showDailyEvent,
       title,
       description,
@@ -32,13 +33,13 @@ export default function ShowEventModel() {
     setSyncTask(true);
   }
   function handleDelete() {
-    deleteItem("task",showDailyEvent._id);
+    deleteItem("task",showDailyEvent.id);
     setShowDailyEvent(null);
     setSyncTask(true);
   }
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center z-50">
-      <form className=" rounded-lg shadow-2xl w-1/4">
+      <form className=" rounded-lg bg-white  shadow-2xl w-1/4">
         <header className=" px-4 py-2 flex justify-between items-center">
           <span className="material-icons-outlined text-gray-400">
             drag_handle

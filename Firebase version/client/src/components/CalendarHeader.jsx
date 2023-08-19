@@ -10,6 +10,7 @@ import { getWeek } from "../utils/getDate";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
 import { Link } from "react-router-dom";
+import { auth } from "../../config/firebase-config";
 dayjs.extend(weekOfYear);
 export default function CalendarHeader() {
   const {
@@ -59,17 +60,13 @@ export default function CalendarHeader() {
     }
   }
   const day = daySelected.format("DD");
+  
   async function logout() {
     try {
-      const res = await axios({
-        method: "GET",
-        url: "http://localhost:3000/auth/logout",
-        withCredentials: true,
-      });
-      console.log(res);
-      window.location.reload();
+      await auth.signOut();
+      nav("/calendar/login")
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -166,13 +163,11 @@ export default function CalendarHeader() {
         {user ? (
           <>
             <select
+              defaultValue={sideBarMode}
               className="border rounded box-border py-2 px-4 mr-5"
-              value={sideBarMode}
               onChange={(e) => setSideBarMode(e.target.value)}
             >
-              <option selected value={"SmallCalendar"}>
-                Show Small Calendar
-              </option>
+              <option value={"SmallCalendar"}>Show Small Calendar</option>
               <option value={"Goals"}>Show Goals</option>
               <option value="Notes">Show Notes</option>
             </select>

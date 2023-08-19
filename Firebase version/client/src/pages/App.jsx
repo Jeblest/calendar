@@ -12,7 +12,7 @@ import YearView from "../components/YearView";
 import axios from "axios";
 import { useCalendar } from "../context/CalendarContext";
 import { useDate } from "../context/DateContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { getItems } from "../utils/API";
 import { useGoal } from "../context/GoalContext";
@@ -36,48 +36,18 @@ function App() {
     savedEvents,
   } = useCalendar();
   const { createGoal, setGoals, setSyncGoal, syncGoal, showGoal } = useGoal();
-  const {createNote,setNotes,syncNote,setSyncNote,showNoteModel,showNote} = useNote();
+  const {
+    createNote,
+    setNotes,
+    syncNote,
+    setSyncNote,
+    showNoteModel,
+    showNote,
+  } = useNote();
   const nav = useNavigate();
-  async function fetchTasks() {
-    const tasks = await getItems("task");
-    setSavedEvents(tasks);
-    setSyncTask(false);
-  }
   useEffect(() => {
-    fetchTasks();
-  }, [syncTask]);
-  async function fetchNote() {
-    const notes = await getItems("note");
-    setNotes(notes);
-    setSyncNote(false);
-  }
-  useEffect(() => {
-    fetchNote();
-  }, [syncNote]);
-  async function fetchGoals() {
-    const goals = await getItems("goal");
-    setGoals(goals);
-    setSyncGoal(false);
-  }
-  useEffect(() => {
-    fetchGoals();
-  }, [syncGoal]);
-  const isAuth = async () => {
-    try {
-      const res = await axios({
-        method: "Get",
-        url: "http://localhost:3000/auth/user",
-        withCredentials: true,
-      });
-      setUser(res.data);
-    } catch (error) {
-      console.log(error);
-      nav("/calendar/login");
-    }
-  };
-  useEffect(() => {
-    isAuth();
-  }, []);
+    if(!user) return nav("/calendar/login")
+  }, [user]);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
@@ -85,10 +55,39 @@ function App() {
   useEffect(() => {
     setCurrentWeek(getWeek(weekIndex));
   }, [weekIndex]);
+
+  async function fetchTasks() {
+    if (!user) return;
+    const tasks = await getItems("task", user.uid);
+    setSavedEvents(tasks);
+    setSyncTask(false);
+  }
+  useEffect(() => {
+    fetchTasks();
+  }, [syncTask, user]);
+  async function fetchNote() {
+    if (!user) return;
+    const notes = await getItems("note", user.uid);
+    setNotes(notes);
+    setSyncNote(false);
+  }
+  useEffect(() => {
+    fetchNote();
+  }, [syncNote, user]);
+
+  async function fetchGoals() {
+    if (!user) return;
+    const goals = await getItems("goal", user.uid);
+    setGoals(goals);
+    setSyncGoal(false);
+  }
+  useEffect(() => {
+    fetchGoals();
+  }, [syncGoal, user]);
   return (
     <>
-      {showNoteModel && <NoteInfo note={showNote}/>}
-      {createNote && <CreateNote/>}
+      {showNoteModel && <NoteInfo note={showNote} />}
+      {createNote && <CreateNote />}
       {showGoal && <GoalInfo goal={showGoal} />}
       {createGoal && <CreateGoal />}
       {showEventModel && <CreateEventModel />}

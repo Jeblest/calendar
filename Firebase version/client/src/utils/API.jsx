@@ -1,52 +1,54 @@
-import axios from "axios";
+import { auth, db } from "../../config/firebase-config";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 export async function createItem(type, item) {
   try {
-    const res = await axios({
-      method: "POST",
-      data: item,
-      url: `http://localhost:3000/${type}`,
-      withCredentials: true,
-    });
+    const itemRef = collection(db, `${type}s`);
+    await addDoc(itemRef, { ...item, userId: auth.currentUser.uid });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
-export async function getItems(type) {
+export async function getItems(type, userId) {
   try {
-    const res = await axios({
-      method: "GET",
-      url: `http://localhost:3000/${type}`,
-      withCredentials: true,
-    });
-    return res.data;
+    const itemRef = collection(db, `${type}s`);
+    const userTasksQuery = query(itemRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(userTasksQuery);
+    const userItems = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return userItems;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
 export async function updateItem(type, id, item) {
   try {
-    const res = await axios({
-      method: "PUT",
-      data: item,
-      url: `http://localhost:3000/${type}/${id}`,
-      withCredentials: true,
-    });
+    const docRef = doc(db, `${type}s`, id);
+    await updateDoc(docRef, item);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
 export async function deleteItem(type, id) {
   try {
-    const res = await axios({
-      method: "DELETE",
-      url: `http://localhost:3000/${type}/${id}`,
-      withCredentials: true,
-    });
+    const docRef = doc(db, `${type}s`, id);
+    await deleteDoc(docRef);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
