@@ -4,10 +4,9 @@ import CalendarHeader from "../components/CalendarHeader";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
 import { auth } from "../../config/firebase-config";
-
 import { signInWithEmailAndPassword } from "firebase/auth";
 export default function Login() {
-  const {user} = useUser()
+  const { user } = useUser();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -16,8 +15,8 @@ export default function Login() {
   const nav = useNavigate();
 
   function isAuth() {
-    if(!user) return nav("/calendar/login")
-    if(user) return nav("/calendar")
+    if (!user) return nav("/calendar/login");
+    if (user) return nav("/calendar");
   }
   useEffect(() => {
     isAuth();
@@ -34,9 +33,10 @@ export default function Login() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      nav("/calendar")
-    } catch (error) {
-      console.error(error);
+      nav("/calendar");
+    } catch (err) {
+      console.error(err);
+      window.location.reload()
     }
   };
 

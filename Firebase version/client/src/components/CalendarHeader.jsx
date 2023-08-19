@@ -9,7 +9,7 @@ import { useCalendar } from "../context/CalendarContext";
 import { getWeek } from "../utils/getDate";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase-config";
 dayjs.extend(weekOfYear);
 export default function CalendarHeader() {
@@ -60,7 +60,7 @@ export default function CalendarHeader() {
     }
   }
   const day = daySelected.format("DD");
-  
+  const nav = useNavigate();
   async function logout() {
     try {
       await auth.signOut();
