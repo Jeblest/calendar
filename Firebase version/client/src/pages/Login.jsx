@@ -127,6 +127,7 @@ export default function Login() {
                   Register
                 </Link>
               </p>
+              <button>Sign in with Google</button>
             </form>
           </div>
         </div>
