@@ -29,7 +29,9 @@ export default function Login() {
       const usersRef = collection(db,"users");
       const userDoc = doc(usersRef,userId)
       await setDoc(userDoc,{
+        email:formData.email,
         username:formData.username,
+        userId:userId
       },{merge:true})
       nav("/calendar/login")
     } catch (error) {

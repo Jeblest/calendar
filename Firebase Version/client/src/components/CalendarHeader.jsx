@@ -184,6 +184,9 @@ export default function CalendarHeader() {
               <option value="Week">Week</option>
               <option value="Year">Year</option>
             </select>
+            <div>
+              {user.username}
+            </div>
             <button
               onClick={logout}
               className="border box-border rounded py-2 px-4 mr-5"

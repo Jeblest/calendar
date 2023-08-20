@@ -5,6 +5,8 @@ import axios from "axios";
 import { useUser } from "../context/UserContext";
 import { auth } from "../../config/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider,signInWithPopup } from "firebase/auth"
+
 export default function Login() {
   const { user } = useUser();
 
@@ -39,6 +41,29 @@ export default function Login() {
       window.location.reload()
     }
   };
+
+  const handleGoogle = async (e) => {
+    e.preventDefault();
+    const provider =  new GoogleAuthProvider();
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        const userID = user.uid;
+        const email = user.email;
+        const username = user.displayName;
+        const usersRef = collection(db, "users");
+        const userDoc = doc(usersRef, userID);
+        setDoc(
+          userDoc,
+          {
+            email: email,
+            username: username,
+            userId: userID,
+          },
+          { merge: true }
+        );
+      })
+  }
 
   return (
     <section className="bg-gray-50 flex flex-col h-screen">
@@ -127,7 +152,8 @@ export default function Login() {
                   Register
                 </Link>
               </p>
-              <button>Sign in with Google</button>
+              <hr />
+              <button className="w-full bg-blue-400 rounded-full h-12 text-white" onClick={handleGoogle}>Sign in with Google</button>
             </form>
           </div>
         </div>

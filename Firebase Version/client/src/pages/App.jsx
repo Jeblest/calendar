@@ -84,6 +84,7 @@ function App() {
   useEffect(() => {
     fetchGoals();
   }, [syncGoal, user]);
+  console.log(user)
   return (
     <>
       {showNoteModel && <NoteInfo note={showNote} />}
