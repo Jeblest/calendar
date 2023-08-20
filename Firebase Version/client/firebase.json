@@ -6,7 +6,6 @@
       "**/.*",
       "**/node_modules/**"
     ]
-    
   },
   "rewrites": [
     {
@@ -14,5 +13,4 @@
       "destination": "/index.html"
     }
   ]
-  
 }
